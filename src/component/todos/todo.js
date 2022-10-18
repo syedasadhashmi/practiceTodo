@@ -37,6 +37,12 @@ const Todo = () => {
     const remainedTodo = todoData.filter(i => i.id !== id);
     setTodoData(remainedTodo);
   }
+  function editHandler(id) {
+    const editDetails = todoData.findIndex(i => i.id === id);
+    // console.log(todoData[editDetails]);
+    setTitle(todoData[editDetails]?.title);
+    setdescription(todoData[editDetails]?.description);
+  }
   return (
     <Layout>
       <Box height={'95vh'}>
@@ -69,7 +75,8 @@ const Todo = () => {
               return (
                 <li key={item.id}>
                   {item.title}{' '}
-                  <Button onClick={() => deleteHandler(item.id)}>Delete</Button>{' '}
+                  <Button onClick={() => editHandler(item.id)}>Edit</Button>
+                  <Button onClick={() => deleteHandler(item.id)}>Delete</Button>
                 </li>
               );
             })}
