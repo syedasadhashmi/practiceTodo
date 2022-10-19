@@ -11,9 +11,10 @@ import {
   Divider,
   Heading,
 } from '@chakra-ui/react';
-import Layout from '../ui/layout';
+import Layout from '../component/ui/layout';
+import { Link } from 'react-router-dom';
 
-const Todo = () => {
+const Home = () => {
   const [todoData, setTodoData] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setdescription] = useState('');
@@ -102,7 +103,10 @@ const Todo = () => {
             {todoData.map((item, index) => {
               return (
                 <li key={item.id}>
-                  {item.title}{' '}
+                  {item.title}
+                  <Link to={`/Details/${item.id}`}>
+                    <Button>Details</Button>
+                  </Link>
                   <Button onClick={() => editHandler(item.id)}>Edit</Button>
                   <Button onClick={() => deleteHandler(item.id)}>Delete</Button>
                 </li>
@@ -115,4 +119,4 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default Home;

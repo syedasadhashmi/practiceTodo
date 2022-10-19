@@ -10,14 +10,18 @@ import {
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import Details from './component/todos/details';
-import Todo from './component/todos/todo';
+import { Route, Routes } from 'react-router-dom';
+import Home from './component/Home';
+import Details from './component/Details';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Details/:id" element={<Details />} />
+      </Routes>
       {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
-      <Todo />
     </ChakraProvider>
   );
 }
