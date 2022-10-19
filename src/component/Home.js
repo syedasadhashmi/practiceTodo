@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -14,12 +14,26 @@ import {
 import Layout from '../component/ui/layout';
 import { Link } from 'react-router-dom';
 
+const getLocalTodos = () => {
+  let todoList = localStorage.getItem('todos');
+  console.log(todoList);
+  if (todoList) {
+    return JSON.parse(localStorage.getItem('todos'));
+  } else {
+    return [];
+  }
+};
+
 const Home = () => {
-  const [todoData, setTodoData] = useState([]);
+  const [todoData, setTodoData] = useState(getLocalTodos());
   const [title, setTitle] = useState('');
   const [description, setdescription] = useState('');
   const [toggleSubmit, setToggleSubmit] = useState(true);
   const [editItem, setEditItem] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todoData));
+  }, [todoData]);
 
   const submitHandler = () => {
     if (!title && !description) {
