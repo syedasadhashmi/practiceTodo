@@ -7,7 +7,7 @@ const Footer = () => {
       style={{
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: 'success',
+        backgroundColor: '#319795',
         alignSelf: 'center',
       }}
     >

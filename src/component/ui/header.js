@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <Box
+      p={5}
       style={{
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: 'success',
+        backgroundColor: '#319795',
         alignSelf: 'center',
       }}
     >
-      <Heading size={'lg'}>To Do List</Heading>
-      <Link to="/">Home</Link>
+      <Heading size={'lg'}>To Do App</Heading>
     </Box>
   );
 };

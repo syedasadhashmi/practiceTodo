@@ -10,10 +10,13 @@ import {
   Button,
   Divider,
   Heading,
+  Center,
 } from '@chakra-ui/react';
 import Layout from '../component/ui/layout';
 import { Link } from 'react-router-dom';
-
+import { MdDelete } from 'react-icons/md';
+import { FiEdit } from 'react-icons/fi';
+import { BiDetail } from 'react-icons/bi';
 const getLocalTodos = () => {
   let todoList = localStorage.getItem('todos');
   console.log(todoList);
@@ -82,53 +85,94 @@ const Home = () => {
   }
   return (
     <Layout>
-      <Box height={'95vh'}>
-        <form>
-          <FormControl isRequired>
-            <FormLabel>Title</FormLabel>
-            <Input
-              placeholder="title"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel>Description</FormLabel>
-            <Textarea
-              placeholder="description"
-              value={description}
-              onChange={e => setdescription(e.target.value)}
-            />
-          </FormControl>
-          {toggleSubmit ? (
-            <Button mt={4} colorScheme="teal" onClick={submitHandler}>
-              Submit
-            </Button>
-          ) : (
-            <Button mt={4} colorScheme="teal" onClick={submitHandler}>
-              Edit
-            </Button>
-          )}
-        </form>
-        <Divider />
-        <Box>
-          <Heading size={'small'}>Todo's List</Heading>
-          <ul>
-            {todoData.map((item, index) => {
-              return (
-                <li key={item.id}>
-                  {item.title}
-                  <Link to={`/Details/${item.id}`}>
-                    <Button>Details</Button>
-                  </Link>
-                  <Button onClick={() => editHandler(item.id)}>Edit</Button>
-                  <Button onClick={() => deleteHandler(item.id)}>Delete</Button>
-                </li>
-              );
-            })}
-          </ul>
+      <Center backgroundColor="#319795">
+        <Box height={'95vh'}>
+          <Box
+            p={5}
+            boxShadow={'md'}
+            borderRadius={10}
+            marginBottom={2}
+            marginTop={5}
+            backgroundColor="#edf2f7"
+          >
+            <form>
+              <FormControl isRequired>
+                <FormLabel>Title</FormLabel>
+                <Input
+                  placeholder="title"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  size="lg"
+                  style={{ border: '1px solid' }}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel>Description</FormLabel>
+                <Textarea
+                  placeholder="description"
+                  value={description}
+                  onChange={e => setdescription(e.target.value)}
+                  size="lg"
+                  style={{ border: '1px solid' }}
+                />
+              </FormControl>
+              <Center>
+                {toggleSubmit ? (
+                  <Button mt={4} colorScheme="teal" onClick={submitHandler}>
+                    Submit
+                  </Button>
+                ) : (
+                  <Button mt={4} colorScheme="teal" onClick={submitHandler}>
+                    Edit
+                  </Button>
+                )}
+              </Center>
+            </form>
+          </Box>
+          <Box p={5} marginTop={3} backgroundColor="#edf2f7" borderRadius={10}>
+            <Center p={2}>
+              <Heading fontSize={24}>Todo's List</Heading>
+            </Center>
+            <ul>
+              {todoData.map((item, index) => {
+                return (
+                  <Box
+                    boxShadow={'md'}
+                    borderRadius={10}
+                    margin={2}
+                    p={5}
+                    key={item.id}
+                    width="500px"
+                    style={{ display: 'flex', justifyContent: 'space-between' }}
+                  >
+                    {item.title}
+                    <Box>
+                      <Link to={`/Details/${item.id}`}>
+                        <Button size={'sm'} marginRight={2}>
+                          <BiDetail />
+                        </Button>
+                      </Link>
+                      <Button
+                        size={'sm'}
+                        onClick={() => editHandler(item.id)}
+                        marginRight={2}
+                      >
+                        <FiEdit />
+                      </Button>
+                      <Button
+                        size={'sm'}
+                        onClick={() => deleteHandler(item.id)}
+                      >
+                        <MdDelete />
+                      </Button>
+                    </Box>
+                  </Box>
+                );
+              })}
+            </ul>
+          </Box>
         </Box>
-      </Box>
+      </Center>
     </Layout>
   );
 };
