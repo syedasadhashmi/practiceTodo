@@ -7,7 +7,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Layout from './ui/layout';
 const Details = ({ todoData }) => {
   const { id } = useParams();
@@ -62,9 +62,11 @@ const Details = ({ todoData }) => {
               }
             })}
             <Center>
-              <Button colorScheme="teal" mt={4}>
-                Back
-              </Button>
+              <Link to={'/'}>
+                <Button colorScheme="teal" mt={4}>
+                  Back
+                </Button>
+              </Link>
             </Center>
           </Box>
         </Box>
