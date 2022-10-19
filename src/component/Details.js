@@ -6,6 +6,8 @@ import {
   Input,
   Textarea,
 } from '@chakra-ui/react';
+import { db } from '../firebase';
+import { collection, query, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Layout from './ui/layout';
@@ -15,9 +17,20 @@ const Details = ({ todoData }) => {
   const [details, setDetails] = useState([]);
 
   useEffect(() => {
-    const getData = JSON.parse(localStorage.getItem('todos'));
-    console.log(getData);
-    setDetails(getData);
+    // const getData = JSON.parse(localStorage.getItem('todos'));
+    // console.log(getData);
+    // setDetails(getData);
+
+    // localStorage.setItem('todos', JSON.stringify(todoData));
+    const q = query(collection(db, 'todos'));
+    const unsub = onSnapshot(q, querySnapshot => {
+      let todosArray = [];
+      querySnapshot.forEach(doc => {
+        todosArray.push({ ...doc.data(), id: doc.id });
+      });
+      setDetails(todosArray);
+    });
+    return () => unsub();
   }, []);
   console.log(JSON.parse(localStorage.getItem('todos')));
   return (
@@ -31,6 +44,7 @@ const Details = ({ todoData }) => {
             marginBottom={2}
             marginTop={5}
             backgroundColor="#edf2f7"
+            width="500px"
           >
             {details?.map(item => {
               if (item.id === id) {
