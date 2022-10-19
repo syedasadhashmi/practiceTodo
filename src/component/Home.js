@@ -64,14 +64,18 @@ const Home = () => {
       alert('Enter Both title & description');
       return;
     } else if (title && description && !toggleSubmit) {
-      setTodoData(
-        todoData.map(item => {
-          if (item.id === editItem) {
-            return { ...item, title: title, description: description };
-          }
-          return item;
-        })
-      );
+      updateDoc(doc(db, 'todos', editItem), {
+        title: title,
+        description: description,
+      });
+      //   setTodoData(
+      //     todoData.map(item => {
+      //       if (item.id === editItem) {
+      //         return { ...item, title: title, description: description };
+      //       }
+      //       return item;
+      //     })
+      //   );
       setToggleSubmit(true);
       setTitle('');
       setdescription('');
@@ -99,13 +103,12 @@ const Home = () => {
     deleteDoc(doc(db, 'todos', id));
   }
   function editHandler(id) {
-    // setToggleSubmit(false);
-    // const editFind = todoData.find(i => i.id === id);
-    // setTitle(editFind.title);
-    // setdescription(editFind.description);
-    // setEditItem(id);
+    setToggleSubmit(false);
+    const editFind = todoData.find(i => i.id === id);
+    setTitle(editFind.title);
+    setdescription(editFind.description);
+    setEditItem(id);
     // console.log(editFind.id);
-    updateDoc(doc(db, 'todos', id), { title: title, description: description });
   }
   return (
     <Layout>
